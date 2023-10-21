@@ -8,6 +8,7 @@ import {
   findUserById,
   getUserPosts,
   refresh,
+  getFriendStatusInfo,
 } from '../services/user-service';
 import { emailVerification } from '../services/mail-service';
 import { returnChatId } from '../services/chat-service';
@@ -101,6 +102,11 @@ class UserController {
   }
   async findChatByUserId(request, response, next) {
     const chat_id = await returnChatId(request.params.id, request.params.hostUserId);
+    response.json(chat_id);
+  }
+  async getFriendStatusInfo(request, response, next) {
+    console.log(request.params.userId, request.params.status)
+    const chat_id = await getFriendStatusInfo(request.params.userId, request.params.status);
     response.json(chat_id);
   }
 }
