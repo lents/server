@@ -7,7 +7,7 @@ import {
   returnAllUsers,
   findUserById,
   getUserPosts,
-  addPost,
+  refresh,
 } from '../services/user-service';
 import { emailVerification } from '../services/mail-service';
 import { returnChatId } from '../services/chat-service';
@@ -37,9 +37,9 @@ class UserController {
     response.json(userID);
   }
   async refresh(request, response, next) {
-    try {
       const { refreshToken } = request.cookies;
-    } catch {}
+      let result = await refresh(refreshToken);
+      response.json(result);
   }
   async changeUsername(request, response, next) {
     const username = request.body.username;
@@ -49,13 +49,7 @@ class UserController {
       response.json(username);
     }
   }
-  async addPost(request, response, next) {
-    const DATA = request.body;
-    const res = await addPost(DATA);
-    if (res) {
-      response.json(res);
-    } 
-  }
+ 
   async verification(request, response, next) {
     if (request.params.link) {
       const data = {
@@ -98,6 +92,7 @@ class UserController {
   async getUserPosts(request, response, next) {
     const search_Id_Value = request.query.search_value;
     const users_response = await getUserPosts(search_Id_Value);
+    users_response.forEach(u=>{u.photosString = u.photos.toString('base64')});
     response.json(users_response);
   }
   async returnAllUsers(request, response, next) {

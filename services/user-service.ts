@@ -108,7 +108,8 @@ export async function changeUsername(username: string, email: string) {
 export async function addPost(DATA) {
   const isSet = await setPost(DATA);
   if ((isSet as any).affectedRows === 1) {
-    return 'You have successfully changed your username';
+    console.log((isSet as any).affectedRows[0]);
+    return 'You have successfully added the post';
   } else {
     return false;
   }

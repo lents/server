@@ -53,9 +53,11 @@ export async function set(
 
 export async function setPost(DATA): Promise<mysql.RowDataPacket[]> {
   try {
-    const results = await conn.query<RowDataPacket[]>(
-      `INSERT INTO posts (id, wallId, authorId, text, photos, files) VALUES (NULL, '${DATA.wallId}', '${DATA.authorId}', '${DATA.postText}', '${DATA.photo}', '${DATA.file}');`,
-    );
+              
+    const results = await conn.query<RowDataPacket[]>("INSERT INTO posts SET ?", DATA);
+    // const results = await conn.query<RowDataPacket[]>(
+    //   `INSERT INTO posts (id, wallId, authorId, text, photos, files) VALUES (NULL, '${DATA.wallId}', '${DATA.authorId}', '${DATA.postText}', '${DATA.photo}', '${DATA.file}');`,
+    // );
     return results[0];
   } catch (ex) {
     console.log(ex);
