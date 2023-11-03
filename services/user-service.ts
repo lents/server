@@ -1,4 +1,4 @@
-import { ApiError } from './../exceptions/api-error';
+import { ApiError } from './../exceptions/api-error.js';
 import { ResultSetHeader } from 'mysql2';
 import {
   find,
@@ -17,8 +17,8 @@ import {
   returnAllPrivateChats,
   returnUsersInChat,
   FriendsRequestNotifications,
-} from './sqlwrapper';
-import { generateJwtTokens, validateRefreshToken } from './token-service';
+} from './sqlwrapper.js';
+import { generateJwtTokens, validateRefreshToken } from './token-service.js';
 import { compareSync } from 'bcrypt-ts';
 import { JwtPayload } from 'jsonwebtoken';
 
