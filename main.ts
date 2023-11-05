@@ -11,7 +11,7 @@ const server = express();
 server.use(
   cors({
     credentials: true,
-    origin: `${process.env.CLIENT_HOST}:${process.env.CLIENT_PORT}`,
+    origin: process.env.CORS_ORIGIN,
   }),
 );
 server.use(express.json());

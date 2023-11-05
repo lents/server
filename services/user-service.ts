@@ -19,7 +19,7 @@ import {
   FriendsRequestNotifications,
 } from './sqlwrapper.js';
 import { generateJwtTokens, validateRefreshToken } from './token-service.js';
-import { compareSync } from 'bcrypt-ts';
+import bcrypt from 'bcryptjs';
 import { JwtPayload } from 'jsonwebtoken';
 
 export async function findUserByName(DATA) {
@@ -130,7 +130,7 @@ export async function authorization(email: string, password: string) {
   const hash = user.password;
   const username = user.username;
   const avatar = user.avatar;
-  if (!compareSync(password, hash)) {
+  if (!bcrypt.compareSync(password, hash)) {
     throw Error('password invalid'); //password invalid;
   }
   const { accessToken, refreshToken } = generateJwtTokens({
